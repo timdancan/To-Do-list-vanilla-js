@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do-Vanilla</title>
+  <link rel="stylesheet" href="./css/index.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container container_header">
+      <h1 class="header__title">To Do list</h1>
+        <div class="counter">
+          <div class="counter__container">
+            <h4 class="counter__title">Scope</h4>
+            <span class="counter__number">0</span>
+          </div>
+          <div class="counter__container">
+            <h4 class="counter__title">Active</h4>
+            <span class="counter__number">0</span>
+          </div>
+          <div class="counter__container">
+            <h4 class="counter__title">Successful</h4>
+            <span class="counter__number">0</span>
+          </div>
+        </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="tasks">
+      <div class="container container_tasks">
+        <button class="tasks__button tasks__button_top page-link" type="button"></button>
+        <div class="task">
+          <label class="task__label">
+            <input type="checkbox" class="task__checkbox">
+            <span class="checkbox__style"></span>
+            <div class="task__box">
+              <p class="task__data">3 Jan 2021</p>
+              <div class="task__buttons">
+                <button type="button" class="task__button task__button_edit page-link"></button>
+                <button type="button" class="task__button task__button_trash page-link"></button>
+              </div>
+            </div>
+            <input type="text" class="task__text" placeholder="Please enter task description">
+          </label>
+        </div>
+        <button class="tasks__button tasks__button_bottom page-link"><img src="./images/mini-plus.svg" alt=""> Create new task</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
