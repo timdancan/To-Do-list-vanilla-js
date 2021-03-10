@@ -172,13 +172,21 @@ body {
   margin-left: -26px;
 }
 
-.task__checkbox:checked + .checkbox__style::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 0;
-  height: 100%;
-  width: 100%;
+
+// .task__checkbox:checked + .checkbox__style::after {
+//   content: "";
+//   position: absolute;
+//   top: 0;
+//   width: 0;
+//   height: 100%;
+//   width: 100%;
+//   background-image: url(../images/checked.svg);
+//   background-repeat: no-repeat;
+//   background-color: #889dea;
+//   background-position: center;
+// }
+
+.task__checkbox_active {
   background-image: url(../images/checked.svg);
   background-repeat: no-repeat;
   background-color: #889dea;
@@ -194,13 +202,18 @@ body {
 .task__button {
   width: 24px;
   height: 24px;
+  outline: none;
   border: none;
   background-color: transparent;
 }
 
 .task__button_edit {
-  background-image: url(../images/edit.svg);
+  background-image: url(../images/sumbit.svg);
   margin-right: 5px;
+}
+
+.task__button_edit-active {
+  background-image: url(../images/edit.svg);
 }
 
 .task__button_trash {
@@ -218,11 +231,21 @@ body {
   font-size: 14px;
   line-height: 22px;
   &::placeholder {
+    text-decoration: none;
     font-weight: normal;
     font-size: 14px;
     line-height: 22px;
     color: #bbbbbb;
   }
+}
+
+.task__text_active {
+  text-decoration: line-through #bbbbbb;
+}
+
+.task__text_disabled {
+  color: #bbbbbb;
+  background-color: transparent;
 }
 
 .tasks__button_bottom {
