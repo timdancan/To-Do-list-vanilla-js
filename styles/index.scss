@@ -146,7 +146,6 @@ body {
   position: relative;
   padding-left: 26px;
   display: flex;
-  cursor: pointer;
   border-bottom: 1px solid #c7c7c7;
   flex-direction: column;
   margin-top: 19px;
@@ -170,6 +169,7 @@ body {
   width: 18px;
   position: absolute;
   margin-left: -26px;
+  cursor: pointer;
 }
 
 
@@ -206,6 +206,8 @@ body {
   border: none;
   background-color: transparent;
 }
+
+
 
 .task__button_edit {
   background-image: url(../images/sumbit.svg);
