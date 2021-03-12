@@ -172,20 +172,6 @@ body {
   cursor: pointer;
 }
 
-
-// .task__checkbox:checked + .checkbox__style::after {
-//   content: "";
-//   position: absolute;
-//   top: 0;
-//   width: 0;
-//   height: 100%;
-//   width: 100%;
-//   background-image: url(../images/checked.svg);
-//   background-repeat: no-repeat;
-//   background-color: #889dea;
-//   background-position: center;
-// }
-
 .task__checkbox_active {
   background-image: url(../images/checked.svg);
   background-repeat: no-repeat;
@@ -243,6 +229,9 @@ body {
 
 .task__text_active {
   text-decoration: line-through #bbbbbb;
+  &::placeholder {
+    text-decoration: none;
+  }
 }
 
 .task__text_disabled {

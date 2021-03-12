@@ -155,6 +155,15 @@ function getTodos() {
     if(todo.ckecked) {
       taskText.classList.add("task__text_active");
       checkboxStyle.classList.add("task__checkbox_active");
+      const prevCountActive = activeTaskNumber.textContent;
+      const prevCountSuccess = successfulTaskNumber.textContent;
+      if (checkboxStyle.classList.contains("task__checkbox_active")) {
+        activeTaskNumber.textContent = reduceCount(prevCountActive);
+        successfulTaskNumber.textContent = increaseCount(prevCountSuccess);
+      } else {
+        activeTaskNumber.textContent = increaseCount(prevCountActive);
+        successfulTaskNumber.textContent = reduceCount(prevCountSuccess);
+      }
     }
     // Удаление элемента
     deleteButton.addEventListener("click", (e) => {
