@@ -70,6 +70,9 @@ function composeItem() {
       successfulTaskNumber.textContent = reduceCount(prevCountSuccess);
     }
     taskObj.ckecked = !taskObj.ckecked;
+    removeLocalTodos(itemId);
+    saveLocalTodos(taskObj);
+    console.log(taskObj);
   });
   // добавлние в локалсторедж
   saveLocalTodos(taskObj);
@@ -140,11 +143,18 @@ function getTodos() {
     taskText.id = `${todo.id}`;
 
     taskData.textContent = date;
+
     taskText.value = todo.value;
+
     if (taskText.value.length > 0) {
-      editButton.classList.toggle("task__button_edit-active");
+      editButton.classList.add("task__button_edit-active");
       taskText.disabled = !taskText.disabled;
-      taskText.classList.toggle("task__text_disabled");
+      taskText.classList.add("task__text_disabled");
+    }
+
+    if(todo.ckecked) {
+      taskText.classList.add("task__text_active");
+      checkboxStyle.classList.add("task__checkbox_active");
     }
     // Удаление элемента
     deleteButton.addEventListener("click", (e) => {
@@ -208,16 +218,6 @@ function removeLocalTodos(todo) {
   todos.splice(todo, 1);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
-
-// function changeInput(todo) {
-//   let todos;
-//   if (localStorage.getItem('todos') === null) {
-//     todos = [];
-//   } else {
-//     todos = JSON.parse(localStorage.getItem("todos"));
-//   }
-//   localStorage.setItem('todos', JSON.stringify(todo))
-// }
 
 document.addEventListener("DOMContentLoaded", getTodos);
 
