@@ -7,7 +7,7 @@ const successfulTaskNumber = document.querySelector(
   ".counter__number_successful"
 );
 const date = formattedDate();
-const todoList = []
+let id = 0;
 
 function composeItem() {
   const newItem = template.content.cloneNode(true);
@@ -16,6 +16,18 @@ function composeItem() {
   const deleteButton = newItem.querySelector(".task__button_trash");
   const editButton = newItem.querySelector(".task__button_edit");
   const taskText = newItem.querySelector(".task__text");
+
+  // Присваевание id
+  const itemId = id++;
+  taskText.id = `${itemId}`;
+
+  taskData.textContent = date;
+
+  const taskObj = {
+    value: taskText.value,
+    id: taskText.id,
+    ckecked: false,
+  };
   // Удаление элемента
   deleteButton.addEventListener("click", (e) => {
     const targetElement = e.target;
@@ -23,20 +35,26 @@ function composeItem() {
     const prevCountScope = scopeTaskNumber.textContent;
     const prevCountActive = activeTaskNumber.textContent;
     const prevCountSuccess = successfulTaskNumber.textContent;
+
     if (checkboxStyle.classList.contains("task__checkbox_active")) {
       successfulTaskNumber.textContent = reduceCount(prevCountSuccess);
     } else {
       activeTaskNumber.textContent = reduceCount(prevCountActive);
     }
     scopeTaskNumber.textContent = reduceCount(prevCountScope);
-    removeLocalTodos(targetItem)
+    removeLocalTodos(itemId);
     targetItem.remove();
   });
+
   //  Изменение импута
   editButton.addEventListener("click", () => {
     editButton.classList.toggle("task__button_edit-active");
     taskText.disabled = !taskText.disabled;
     taskText.classList.toggle("task__text_disabled");
+    taskObj.value = taskText.value;
+    removeLocalTodos(itemId);
+    saveLocalTodos(taskObj);
+    console.log(taskObj);
   });
   // Тогл активный - не активный
   checkboxStyle.addEventListener("click", () => {
@@ -51,11 +69,10 @@ function composeItem() {
       activeTaskNumber.textContent = increaseCount(prevCountActive);
       successfulTaskNumber.textContent = reduceCount(prevCountSuccess);
     }
+    taskObj.ckecked = !taskObj.ckecked;
   });
-
-  taskData.textContent = date;
   // добавлние в локалсторедж
-  saveLocalTodos(taskText.value);
+  saveLocalTodos(taskObj);
 
   return newItem;
 }
@@ -91,6 +108,8 @@ function formattedDate(d = new Date()) {
   return `${day}/${month}/${year}`;
 }
 
+// Манипуляции с localstorage
+
 function saveLocalTodos(todo) {
   let todos;
   if (localStorage.getItem("todos") === null) {
@@ -116,6 +135,17 @@ function getTodos() {
     const deleteButton = newItem.querySelector(".task__button_trash");
     const editButton = newItem.querySelector(".task__button_edit");
     const taskText = newItem.querySelector(".task__text");
+
+    // Присваевание id
+    taskText.id = `${todo.id}`;
+
+    taskData.textContent = date;
+    taskText.value = todo.value;
+    if (taskText.value.length > 0) {
+      editButton.classList.toggle("task__button_edit-active");
+      taskText.disabled = !taskText.disabled;
+      taskText.classList.toggle("task__text_disabled");
+    }
     // Удаление элемента
     deleteButton.addEventListener("click", (e) => {
       const targetElement = e.target;
@@ -129,7 +159,7 @@ function getTodos() {
         activeTaskNumber.textContent = reduceCount(prevCountActive);
       }
       scopeTaskNumber.textContent = reduceCount(prevCountScope);
-      removeLocalTodos()
+      removeLocalTodos(`${todo.id}`);
       targetItem.remove();
     });
     //  Изменение импута
@@ -137,6 +167,9 @@ function getTodos() {
       editButton.classList.toggle("task__button_edit-active");
       taskText.disabled = !taskText.disabled;
       taskText.classList.toggle("task__text_disabled");
+      todo.value = taskText.value;
+      removeLocalTodos(`${todo.id}`);
+      saveLocalTodos(todo);
     });
     // Тогл активный - не активный
     checkboxStyle.addEventListener("click", () => {
@@ -164,15 +197,27 @@ function getTodos() {
   });
 }
 
-function removeLocalTodos() {
+function removeLocalTodos(todo) {
   let todos;
   if (localStorage.getItem("todos") === null) {
     todos = [];
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
-  localStorage.removeItem("todos")
+  console.log(todo);
+  todos.splice(todo, 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
+
+// function changeInput(todo) {
+//   let todos;
+//   if (localStorage.getItem('todos') === null) {
+//     todos = [];
+//   } else {
+//     todos = JSON.parse(localStorage.getItem("todos"));
+//   }
+//   localStorage.setItem('todos', JSON.stringify(todo))
+// }
 
 document.addEventListener("DOMContentLoaded", getTodos);
 
