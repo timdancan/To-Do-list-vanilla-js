@@ -229,13 +229,13 @@ body {
 
 .task__text_active {
   text-decoration: line-through #bbbbbb;
+  color: #bbbbbb;
   &::placeholder {
     text-decoration: none;
   }
 }
 
 .task__text_disabled {
-  color: #bbbbbb;
   background-color: transparent;
 }
 

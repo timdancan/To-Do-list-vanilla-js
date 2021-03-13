@@ -18,7 +18,7 @@ function composeItem() {
   const taskText = newItem.querySelector(".task__text");
 
   // Присваевание id
-  const itemId = id++;
+  let itemId = id++;
   taskText.id = `${itemId}`;
 
   taskData.textContent = date;
@@ -42,7 +42,8 @@ function composeItem() {
       activeTaskNumber.textContent = reduceCount(prevCountActive);
     }
     scopeTaskNumber.textContent = reduceCount(prevCountScope);
-    removeLocalTodos(itemId);
+    id--;
+    removeLocalTodos(id);
     targetItem.remove();
   });
 
@@ -52,8 +53,8 @@ function composeItem() {
     taskText.disabled = !taskText.disabled;
     taskText.classList.toggle("task__text_disabled");
     taskObj.value = taskText.value;
-    removeLocalTodos(itemId);
     saveLocalTodos(taskObj);
+    removeLocalTodos(itemId);
     console.log(taskObj);
   });
   // Тогл активный - не активный
@@ -70,8 +71,8 @@ function composeItem() {
       successfulTaskNumber.textContent = reduceCount(prevCountSuccess);
     }
     taskObj.ckecked = !taskObj.ckecked;
-    removeLocalTodos(itemId);
     saveLocalTodos(taskObj);
+    removeLocalTodos(itemId);
     console.log(taskObj);
   });
   // добавлние в локалсторедж
@@ -140,7 +141,8 @@ function getTodos() {
     const taskText = newItem.querySelector(".task__text");
 
     // Присваевание id
-    taskText.id = `${todo.id}`;
+    const itemId = id++;
+    taskText.id = `${itemId}`;
 
     taskData.textContent = date;
 
@@ -152,7 +154,7 @@ function getTodos() {
       taskText.classList.add("task__text_disabled");
     }
 
-    if(todo.ckecked) {
+    if (todo.ckecked) {
       taskText.classList.add("task__text_active");
       checkboxStyle.classList.add("task__checkbox_active");
       const prevCountActive = activeTaskNumber.textContent;
@@ -178,7 +180,8 @@ function getTodos() {
         activeTaskNumber.textContent = reduceCount(prevCountActive);
       }
       scopeTaskNumber.textContent = reduceCount(prevCountScope);
-      removeLocalTodos(`${todo.id}`);
+      id--;
+      removeLocalTodos(id);
       targetItem.remove();
     });
     //  Изменение импута
@@ -187,8 +190,8 @@ function getTodos() {
       taskText.disabled = !taskText.disabled;
       taskText.classList.toggle("task__text_disabled");
       todo.value = taskText.value;
-      removeLocalTodos(`${todo.id}`);
       saveLocalTodos(todo);
+      removeLocalTodos(todo.id);
     });
     // Тогл активный - не активный
     checkboxStyle.addEventListener("click", () => {
@@ -203,6 +206,9 @@ function getTodos() {
         activeTaskNumber.textContent = increaseCount(prevCountActive);
         successfulTaskNumber.textContent = reduceCount(prevCountSuccess);
       }
+      todo.ckecked = !todo.ckecked;
+      saveLocalTodos(todo);
+      removeLocalTodos(todo.id);
     });
 
     taskData.textContent = date;
@@ -223,7 +229,6 @@ function removeLocalTodos(todo) {
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
-  console.log(todo);
   todos.splice(todo, 1);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
