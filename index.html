@@ -32,25 +32,26 @@
     <section class="tasks">
       <div class="container container_tasks">
         <button class="tasks__button tasks__button_top page-link" type="button"></button>
-        <div class="task">
-        </div>
+        <form class="task" novalid>
+        </form>
         <button class="tasks__button tasks__button_bottom page-link"><img src="./images/mini-plus.svg" alt=""> Create new task</button>
       </div>
     </section>
   </main>
   <template class="template">
-    <label class="task__label">
-      <input type="checkbox" class="task__checkbox">
-      <span class="checkbox__style"></span>
-      <div class="task__box">
-        <p class="task__data"></p>
-        <div class="task__buttons">
-          <button type="button" class="task__button task__button_edit page-link"></button>
-          <button type="button" class="task__button task__button_trash page-link"></button>
+      <label class="task__label">
+        <input type="checkbox" class="task__checkbox">
+        <span class="checkbox__style"></span>
+        <div class="task__box">
+          <p class="task__data"></p>
+          <div class="task__buttons">
+            <button type="submit" class="task__button task__button_edit page-link"></button>
+            <button type="button" class="task__button task__button_trash page-link"></button>
+          </div>
         </div>
-      </div>
-      <input type="text" class="task__text" placeholder="Please enter task description">
-    </label>
+        <input type="text" class="task__text" placeholder="Please enter task description" id="input-text" minlength="4" required>
+        <span class="task__error" id="input-text-error"></span>
+      </label>
   </template>
   <script src="./scripts/index.js"></script>
 </body>

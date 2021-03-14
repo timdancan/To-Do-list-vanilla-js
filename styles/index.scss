@@ -210,6 +210,18 @@ body {
   margin-right: 22px;
 }
 
+.task__error {
+  font-weight: 1;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+}
+
+.task__text_type_error {
+  border-bottom: 2px solid red !important;
+  margin-bottom: 0 !important;
+}
+
 .task__text {
   outline: none;
   border: none;

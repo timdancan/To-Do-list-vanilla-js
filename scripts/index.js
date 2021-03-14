@@ -16,6 +16,7 @@ function composeItem() {
   const deleteButton = newItem.querySelector(".task__button_trash");
   const editButton = newItem.querySelector(".task__button_edit");
   const taskText = newItem.querySelector(".task__text");
+  const error = newItem.querySelector(".task__error");
 
   // Присваевание id
   let itemId = id++;
@@ -48,7 +49,8 @@ function composeItem() {
   });
 
   //  Изменение импута
-  editButton.addEventListener("click", () => {
+  task.addEventListener("submit", (e) => {
+    e.preventDefault();
     editButton.classList.toggle("task__button_edit-active");
     taskText.disabled = !taskText.disabled;
     taskText.classList.toggle("task__text_disabled");
@@ -56,6 +58,18 @@ function composeItem() {
     saveLocalTodos(taskObj);
     removeLocalTodos(itemId);
     console.log(taskObj);
+  });
+  // Валидация импута
+  taskText.addEventListener("input", (e) => {
+    const input = e.target;
+    error.textContent = input.validationMessage;
+    if (input.validity.valid) {
+      input.classList.remove("task__text_type_error");
+      editButton.disabled = false;
+    } else {
+      input.classList.add("task__text_type_error");
+      editButton.disabled = true;
+    }
   });
   // Тогл активный - не активный
   checkboxStyle.addEventListener("click", () => {
@@ -139,6 +153,7 @@ function getTodos() {
     const deleteButton = newItem.querySelector(".task__button_trash");
     const editButton = newItem.querySelector(".task__button_edit");
     const taskText = newItem.querySelector(".task__text");
+    const error = newItem.querySelector(".task__error");
 
     // Присваевание id
     const itemId = id++;
@@ -184,8 +199,21 @@ function getTodos() {
       removeLocalTodos(id);
       targetItem.remove();
     });
+    // Валидация импута
+    taskText.addEventListener("input", (e) => {
+      const input = e.target;
+      error.textContent = input.validationMessage;
+      if (input.validity.valid) {
+        input.classList.remove("task__text_type_error");
+        editButton.disabled = false;
+      } else {
+        input.classList.add("task__text_type_error");
+        editButton.disabled = true;
+      }
+    });
     //  Изменение импута
-    editButton.addEventListener("click", () => {
+    task.addEventListener("submit", (e) => {
+      e.preventDefault();
       editButton.classList.toggle("task__button_edit-active");
       taskText.disabled = !taskText.disabled;
       taskText.classList.toggle("task__text_disabled");
